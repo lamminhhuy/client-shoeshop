@@ -70,8 +70,8 @@ const PlaceOrderScreen = ({ history }) => {
                 <h5>
                   <strong>Customer</strong>
                 </h5>
-                <p>{`LÂM MINH HUY`}</p>
-                <p>{`lhuy00429@gmail.com`}</p>
+                <p>{userInfo.name}</p>
+                <p>{userInfo.email}</p>
               </div>
             </div>
           </div>
@@ -87,8 +87,8 @@ const PlaceOrderScreen = ({ history }) => {
                 <h5>
                   <strong>Order info</strong>
                 </h5>
-                <p>Shipping: 115 KV</p>
-                <p>Pay method: PayPal or Credit</p>
+                <p>Shipping: {cart.shippingAddress.country}</p>
+                <p>Pay method: {cart.paymentMethod}</p>
               </div>
             </div>
           </div>
@@ -105,7 +105,9 @@ const PlaceOrderScreen = ({ history }) => {
                   <strong>Deliver to</strong>
                 </h5>
                 <p>
-                  Address: 115 KV HCM VIETNAM
+                  Address: {cart.shippingAddress.city},{" "}
+                  {cart.shippingAddress.address},{" "}
+                  {cart.shippingAddress.postalCode}
                 </p>
               </div>
             </div>
