@@ -158,7 +158,7 @@ const SingleProduct = ({ history, match }) => {
                     </Message>
                   )}
                 </div>
-                {userInfo ? (
+                
                   <form onSubmit={submitHandler}>
                     <div className="my-4">
                       <strong>Rating</strong>
@@ -193,7 +193,7 @@ const SingleProduct = ({ history, match }) => {
                       </button>
                     </div>
                   </form>
-                ) : (
+                
                   <div className="my-3">
                     <Message variant={"alert-warning"}>
                       Please{" "}
@@ -203,7 +203,7 @@ const SingleProduct = ({ history, match }) => {
                       to write a review{" "}
                     </Message>
                   </div>
-                )}
+                
               </div>
             </div>
           </>
