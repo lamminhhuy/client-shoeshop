@@ -87,8 +87,8 @@ const PlaceOrderScreen = ({ history }) => {
                 <h5>
                   <strong>Order info</strong>
                 </h5>
-                <p>Shipping: {cart.shippingAddress.country}</p>
-                <p>Pay method: {cart.paymentMethod}</p>
+                <p>Shipping: 115 KV</p>
+                <p>Pay method: PayPal or Credit</p>
               </div>
             </div>
           </div>
@@ -105,9 +105,7 @@ const PlaceOrderScreen = ({ history }) => {
                   <strong>Deliver to</strong>
                 </h5>
                 <p>
-                  Address: {cart.shippingAddress.city},{" "}
-                  {cart.shippingAddress.address},{" "}
-                  {cart.shippingAddress.postalCode}
+                  Address: 115 KV HCM VIETNAM
                 </p>
               </div>
             </div>
