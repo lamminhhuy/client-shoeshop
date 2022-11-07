@@ -4,7 +4,7 @@ import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBRx18yLjys6LxvgtbnA9GBSljSeiFS2zo",
-    authDomain: "https://clientside-shoeshop.herokuapp.com/",
+    authDomain: "shoeshop-a401e.firebaseapp.com",
     databaseURL: "https://shoeshop-a401e-default-rtdb.firebaseio.com",
     projectId: "shoeshop-a401e",
     storageBucket: "shoeshop-a401e.appspot.com",
