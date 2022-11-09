@@ -9,6 +9,9 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  PRODUCT_LISTHOTSALE_REQUEST,
+  PRODUCT_LISTHOTSALE_SUCCESS,
+  PRODUCT_LISTHOTSALE_FAIL,
 } from "../Constants/ProductConstants";
 import { logout } from "./userActions";
 import { URL } from "../Url";
@@ -79,6 +82,29 @@ export const createProductReview =
       }
       dispatch({
         type: PRODUCT_CREATE_REVIEW_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+  export const listHotSale = () => async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_LISTHOTSALE_REQUEST });
+      const { data } = await axios.get(
+        `${URL}/api/products/gethotsale/get`);
+ 
+      dispatch({ type: PRODUCT_LISTHOTSALE_SUCCESS, payload: data });
+     
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      if (message === "Not authorized, token failed") {
+        dispatch(logout());
+      }
+      dispatch({
+        type: PRODUCT_LISTHOTSALE_FAIL,
         payload: message,
       });
     }

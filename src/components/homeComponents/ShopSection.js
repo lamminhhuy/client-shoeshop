@@ -12,13 +12,17 @@ const ShopSection = (props) => {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
+
   useEffect(() => {
-    dispatch(listProduct(keyword, pagenumber));
+   
+     dispatch(listProduct(keyword, pagenumber));
+  
   }, [dispatch, keyword, pagenumber]);
   return (
     <>
       <div className="container">
         <div className="section">
+          
           <div className="row">
           
             <div className="col-lg-12 col-md-12 article">
@@ -31,6 +35,7 @@ const ShopSection = (props) => {
                   <Message variant="alert-danger">{error}</Message>
                 ) : (
                   <>
+                   <div className="d-flex justify-content-center align-items-center gap-2"> <h2>    <strong>Products</strong></h2></div>
                     {products.map((product) => (
                       <div
                         className="shop col-lg-4 col-md-6 col-sm-6"

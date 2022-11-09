@@ -1,5 +1,6 @@
 import React from 'react'
 const Category = () =>{
+  
     return (
   <div className='col-lg-9'>
     <div className='row mt-5 mx-2'>

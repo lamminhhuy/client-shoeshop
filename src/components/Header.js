@@ -79,7 +79,7 @@ const Header = () => {
                         aria-expanded="false"
                       >
                         <i class="fas fa-user"></i>
-                        Hi, { googleuser ? googleuser.displayName :userInfo.name}
+                        Hi, {googleuser ? googleuser.displayName : userInfo.name}
                       </button>
                       <div className="dropdown-menu">
                         <Link className="dropdown-item" to="/profile">

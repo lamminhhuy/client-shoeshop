@@ -4,7 +4,7 @@ import ShopSection from "./../components/homeComponents/ShopSection";
 import ContactInfo from "./../components/homeComponents/ContactInfo";
 import CalltoActionSection from "./../components/homeComponents/CalltoActionSection";
 import Footer from "./../components/Footer";
-
+import HotSaleSection from "../components/homeComponents/HotSaleSection";
 const HomeScreen = ({ match }) => {
   window.scrollTo(0, 0);
   const keyword = match.params.keyword;
@@ -12,6 +12,7 @@ const HomeScreen = ({ match }) => {
   return (
     <div>
       <Header />
+      <HotSaleSection/>
       <ShopSection keyword={keyword} pagenumber={pagenumber} />
       <CalltoActionSection />
       <ContactInfo />
