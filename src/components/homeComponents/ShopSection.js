@@ -33,8 +33,8 @@ const ShopSection = (props) => {
             <div className="col-lg-10 col-md-12 article">
               <div className="shopcontainer row">
                 {loading ? (
-                  <div className="mb-5">
-                    <Loading />
+                  <div className="mb-5" >
+    
                   </div>
                 ) : error ? (
                   <Message variant="alert-danger">{error}</Message>

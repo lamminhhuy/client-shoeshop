@@ -63,7 +63,7 @@ const HotSaleSection = () => {
         <div className="card-body container">
         
           {loading ? (
-            <Loading />
+            <Loading style={{display:"none"}} />
           ) : error ? (
             <Message variant="alert-danger">{error}</Message>
           ) : (
