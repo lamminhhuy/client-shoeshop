@@ -60,7 +60,7 @@ const HotSaleSection = () => {
    
       
 
-        <div className="card-body">
+        <div className="card-body container">
         
           {loading ? (
             <Loading />

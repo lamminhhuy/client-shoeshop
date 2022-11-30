@@ -3,29 +3,34 @@ import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import Pagination from "./pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { listProduct } from "../../Redux/Actions/ProductActions";
+import { listProduct,listCategoryProducts } from "../../Redux/Actions/ProductActions";
 import Loading from "../LoadingError/Loading";
 import Message from "../LoadingError/Error";
 import Category from "./Category";
+
 const ShopSection = (props) => {
-  const { keyword, pagenumber } = props;
+  const { keyword, pagenumber, category } = props;
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
 
   useEffect(() => {
-   
-     dispatch(listProduct(keyword, pagenumber));
-  
-  }, [dispatch, keyword, pagenumber]);
+     if (category)
+     {
+      dispatch(listCategoryProducts (pagenumber, category));
+     }else{
+     dispatch(listProduct(keyword, pagenumber, category));
+     }
+  }, [dispatch, keyword, pagenumber, category]);
   return (
     <>
       <div className="container">
         <div className="section">
           
           <div className="row">
-          
-            <div className="col-lg-12 col-md-12 article">
+          <div className="d-flex justify-content-center align-items-center gap-2"> <h2>    <strong>Products</strong></h2></div>
+          <Category/>
+            <div className="col-lg-10 col-md-12 article">
               <div className="shopcontainer row">
                 {loading ? (
                   <div className="mb-5">
@@ -35,7 +40,7 @@ const ShopSection = (props) => {
                   <Message variant="alert-danger">{error}</Message>
                 ) : (
                   <>
-                   <div className="d-flex justify-content-center align-items-center gap-2"> <h2>    <strong>Products</strong></h2></div>
+                   
                     {products.map((product) => (
                       <div
                         className="shop col-lg-4 col-md-6 col-sm-6"

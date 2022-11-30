@@ -104,7 +104,7 @@ const OrderScreen = ({ match }) => {
                     </h5>
                     <p>Shipping: {order.shippingAddress.country}</p>
                     <p>Pay method: {order.paymentMethod}</p>
-                    {order.isPaid ? (
+                    {order.orderStatus != "Awaiting"  ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
                           Paid on {moment(order.paidAt).calendar()}
@@ -137,16 +137,26 @@ const OrderScreen = ({ match }) => {
                       {order.shippingAddress.address},{" "}
                       {order.shippingAddress.postalCode}
                     </p>
-                    {order.isDelivered ? (
+                    {order.orderStatus == "Delivered"  ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
                           Delivered on {moment(order.deliveredAt).calendar()}
                         </p>
                       </div>
                     ) : (
-                      <div className="bg-danger p-2 col-12">
+                      <div className=" p-2 col-12">
                         <p className="text-white text-center text-sm-start">
-                          Not Delivered
+                        {order.orderStatus =="Paid"? (   <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                         Your order is processing
+                        </p>
+                      </div>):(
+                           <div className="bg-info p-2 col-12">
+                           <p className="text-white text-center text-sm-start">
+                           {order.orderStatus}
+                           </p>
+                         </div>
+                      ) }
                         </p>
                       </div>
                     )}
@@ -216,12 +226,13 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && (
+                {order.orderStatus != "Paid" && order.orderStatus != "Shipping" && order.orderStatus != "Delivered" &&(
                   <div className="col-12">
                     {loadingPay && <Loading />}
                     {!sdkReady ? (
                       <Loading />
                     ) : (
+                      
                       <PayPalButton
                         amount={order.totalPrice}
                         onSuccess={successPaymentHandler}

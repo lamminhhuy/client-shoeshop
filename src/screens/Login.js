@@ -11,7 +11,16 @@ import { useStateValue } from "../Redux/StateProvider";
 import { Googlelogin } from "./../Redux/Actions/userActions";
 import { useHistory } from "react-router-dom";
 import { async } from "@firebase/util";
+import { isDisable } from "../services/userManage";
 
+import Toast from "../components/LoadingError/Toast";
+import { toast } from "react-toastify";
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000,
+};
 const Login = ({ location, history }) => {
   window.scrollTo(0, 0);
 
@@ -24,7 +33,7 @@ const Login = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { error, loading, userInfo } = userLogin;
 
-
+  const [sucess,setSucess] = useState("");
   useEffect(() => {
     if (userInfo  ) {
 
@@ -32,9 +41,18 @@ const Login = ({ location, history }) => {
     }
   }, [userInfo, history, redirect]);
 
-  const submitHandler = (e) => { 
+  const submitHandler = async (e) => { 
     e.preventDefault();
-    dispatch(login(email, password));
+ isDisable (email).then (data =>{
+  console.log(data);
+  if (data == "true"){
+    toast.success("Tài khoản của bạn đã bị khóa", ToastObjects);
+      setSucess("false");
+  }else{
+    e.preventDefault();
+    dispatch(login(email, password));}
+ })
+
   };
 const Googlelogin1 = async (e) =>{
   await  dispatch(Googlelogin);
@@ -43,6 +61,7 @@ const Googlelogin1 = async (e) =>{
   return (
     <>
       <Header />
+      <Toast />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
         {error && <Message variant="alert-danger">{error}</Message>}
         {loading && <Loading />}

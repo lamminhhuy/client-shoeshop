@@ -50,6 +50,7 @@ const PlaceOrderScreen = ({ history }) => {
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
+        orderStatus: "Awaiting"
       })
     );
   };
@@ -110,6 +111,7 @@ const PlaceOrderScreen = ({ history }) => {
                   {cart.shippingAddress.postalCode}
                 </p>
               </div>
+              
             </div>
           </div>
         </div>

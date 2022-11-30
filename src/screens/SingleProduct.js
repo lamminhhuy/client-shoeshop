@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./../components/Header";
 import Rating from "../components/homeComponents/Rating";
 import { Link } from "react-router-dom";
-import Message from "./../components/LoadingError/Error";
+import Message from "../components/LoadingError/Error";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createProductReview,
@@ -121,7 +121,7 @@ const SingleProduct = ({ history, match }) => {
                           Add To Cart
                         </button>
                       </>
-                    ) : null}
+                    ) : <h4 style={{color:"red", fontSize:"15px"}}>The product is temporarily out of stock</h4>}
                   </div>
                 </div>
               </div>
