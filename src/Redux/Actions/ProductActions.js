@@ -24,7 +24,7 @@ export const listProduct =
       dispatch({ type: PRODUCT_LIST_REQUEST });
       const { data } = await axios.get(
         `${URL}/api/products?keyword=${keyword}&pageNumber=${pageNumber}&category=${category}`
-      );
+      ); 
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
