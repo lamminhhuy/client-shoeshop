@@ -1,5 +1,7 @@
 import axios from "axios";
-export const changestatusOrder = (id) => {
-const {data} = axios.put();
-return data.message;
+import { URL } from "../Redux/Url";
+
+export const cancelOrder = async (id) => {
+    const {data} = await axios.delete(`${URL}/api/orders/cancel/${id}`);
+    return data.message ;
 }

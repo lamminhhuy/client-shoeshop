@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { createOrder } from "../Redux/Actions/OrderActions";
 import { ORDER_CREATE_RESET } from "../Redux/Constants/OrderConstants";
+import { updateStock } from "../services/productServices";
 import Header from "./../components/Header";
 import Message from "./../components/LoadingError/Error";
 
@@ -40,7 +41,7 @@ const PlaceOrderScreen = ({ history }) => {
     }
   }, [history, dispatch, success, order]);
 
-  const placeOrderHandler = () => {
+  const placeOrderHandler = async () => {
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
@@ -50,9 +51,12 @@ const PlaceOrderScreen = ({ history }) => {
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
-        orderStatus: "Awaiting"
+        orderStatus: "Processing"
       })
+    
     );
+    console.log(cart.cartItems);
+
   };
 
   return (

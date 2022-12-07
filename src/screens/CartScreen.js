@@ -3,7 +3,7 @@ import Header from "./../components/Header";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removefromcart } from "./../Redux/Actions/cartActions";
-
+import { updateStock } from "../services/productServices";
 const CartScreen = ({ match, location, history }) => {
   window.scrollTo(0, 0);
   const dispatch = useDispatch();
@@ -23,8 +23,15 @@ const CartScreen = ({ match, location, history }) => {
 
   const checkOutHandler = () => {
     history.push("/login?redirect=shipping");
-  };
-
+   
+    const newarray = [];
+ cartItems.map((value)=> {
+    newarray.push({id:value.product,quantity:value.qty});
+  
+ })
+ console.log(newarray);
+ updateStock(newarray);
+  }
   const removeFromCartHandle = (id) => {
     dispatch(removefromcart(id));
   };

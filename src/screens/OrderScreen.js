@@ -10,17 +10,27 @@ import moment from "moment";
 import axios from "axios";
 import { ORDER_PAY_RESET } from "../Redux/Constants/OrderConstants";
 import { URL } from "../Redux/Url";
+import { toast } from "react-toastify";
+import { cancelOrder } from "../services/orderServices";
+import Toast from "../components/LoadingError/Toast";
+
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000,
+};
 const OrderScreen = ({ match }) => {
   window.scrollTo(0, 0);
   const [sdkReady, setSdkReady] = useState(false);
   const orderId = match.params.id;
   const dispatch = useDispatch();
-
+  const [sucess,setSucess] = useState("");
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
-
+const  [mount,setMount] = useState(true);
   if (!loading) {
     const addDecimals = (num) => {
       return (Math.round(num * 100) / 100).toFixed(2);
@@ -32,6 +42,14 @@ const OrderScreen = ({ match }) => {
   }
 
   useEffect(() => {
+    if(orderId)
+    {
+     if (mount)
+     {
+       dispatch(getOrderDetails(orderId));
+       setMount(false);
+    }
+    }
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(`${URL}/api/config/paypal`);
       const script = document.createElement("script");
@@ -43,6 +61,7 @@ const OrderScreen = ({ match }) => {
       };
       document.body.appendChild(script);
     };
+  
     if (!order || successPay) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
@@ -53,15 +72,25 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, successPay, order]);
+  }, [dispatch, successPay,order,orderId]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult));
   };
-
+const cancelOrderhandler = async () => {
+  let data = {};
+  if (window.confirm("Are you sure??")) {
+    data = await cancelOrder(orderId);
+    toast.success(data, ToastObjects);
+    dispatch(getOrderDetails(orderId));
+  }
+  
+ 
+}
   return (
     <>
       <Header />
+      <Toast/>
       <div className="container">
         {loading ? (
           <Loading />
@@ -104,7 +133,7 @@ const OrderScreen = ({ match }) => {
                     </h5>
                     <p>Shipping: {order.shippingAddress.country}</p>
                     <p>Pay method: {order.paymentMethod}</p>
-                    {order.orderStatus != "Awaiting"  ? (
+                    {order.orderStatus != "Processing"  ? (
                       <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
                           Paid on {moment(order.paidAt).calendar()}
@@ -144,7 +173,7 @@ const OrderScreen = ({ match }) => {
                         </p>
                       </div>
                     ) : (
-                      <div className=" p-2 col-12">
+                      <div className=" p-2 col-12 ">
                         <p className="text-white text-center text-sm-start">
                         {order.orderStatus =="Paid"? (   <div className="bg-info p-2 col-12">
                         <p className="text-white text-center text-sm-start">
@@ -155,9 +184,11 @@ const OrderScreen = ({ match }) => {
                            <p className="text-white text-center text-sm-start">
                            {order.orderStatus}
                            </p>
+                           
                          </div>
-                      ) }
-                        </p>
+                         
+                      ) }                  
+</p> {order.orderStatus != "Canceled" && ( <button type="button" class="btn btn-danger mt-3 text-sm-start" onClick={cancelOrderhandler}>Cancel Order</button>)}
                       </div>
                     )}
                   </div>
@@ -195,6 +226,7 @@ const OrderScreen = ({ match }) => {
                     ))}
                   </>
                 )}
+             
               </div>
               {/* total */}
               <div className="col-lg-3 d-flex align-items-end flex-column mt-5 subtotal-order">
@@ -226,7 +258,7 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {order.orderStatus != "Paid" && order.orderStatus != "Shipping" && order.orderStatus != "Delivered" &&(
+                {order.orderStatus != "Paid" && order.orderStatus != "Shipping" && order.orderStatus != "Delivered" &&order.orderStatus != "Canceled" &&(
                   <div className="col-12">
                     {loadingPay && <Loading />}
                     {!sdkReady ? (
