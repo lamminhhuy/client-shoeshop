@@ -25,11 +25,7 @@ const App = () => {
         <Route path="/search/:keyword" component={SearchScreen} exact />
         <Route path="/category/:category" component={SearchScreen} exact />
         <Route path="/page/:pagenumber" component={HomeScreen} exact />
-        <Route
-          path="/search/:keyword/page/:pageNumber"
-          component={HomeScreen}
-          exact
-        />
+        <Route path="/search/:keyword" component={SearchScreen} exact />
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

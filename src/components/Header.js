@@ -26,7 +26,7 @@ const Header = () => {
     }}
   };
   return (
-    <div>
+    <div> 
       {/* Top Header */}
       <div className="Announcement ">
         <div className="container">

@@ -28,7 +28,7 @@ const ShopSection = (props) => {
         <div className="section">
           
           <div className="row">
-          <div className="d-flex justify-content-center align-items-center gap-2"> <h2>    <strong>Products</strong></h2></div>
+          <div className="d-flex justify-content-center align-items-center gap-2"> <h2><strong>Products</strong></h2></div>
           <Category/>
             <div className="col-lg-10 col-md-12 article">
               <div className="shopcontainer row">

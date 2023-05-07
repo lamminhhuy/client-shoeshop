@@ -59,7 +59,7 @@ const SingleProduct = ({ history, match }) => {
       <Header />
       <div className="container single-product">
         {loading ? (
-          <Loading />
+          <Loading /> 
         ) : error ? (
           <Message variant="alert-danger">{error}</Message>
         ) : (
